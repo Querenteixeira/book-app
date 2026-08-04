@@ -86,6 +86,21 @@ npm run preview
 
 ---
 
+## 🌐 Publicação no GitHub Pages
+
+O projeto já vem pronto para o GitHub Pages:
+
+- `vite.config.js` define `base: '/book-app/'` (o site fica em `https://<usuário>.github.io/book-app/`).
+- O roteamento usa `HashRouter` (URLs com `#`), então links diretos **não dão 404** em hospedagem estática.
+- O workflow `.github/workflows/deploy.yml` faz `npm ci` + `npm run build` e publica a pasta `dist` automaticamente.
+
+**Para ativar (uma única vez):** em **Settings → Pages**, no campo **Source**, selecione **GitHub Actions**.
+Depois, cada push dispara o build e o deploy. O endereço final aparece na aba **Actions**, no job de deploy.
+
+> Se você renomear o repositório, ajuste o `base` no `vite.config.js` para `'/<novo-nome>/'`.
+
+---
+
 ## 📁 Estrutura do projeto
 
 ```

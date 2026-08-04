@@ -9,7 +9,7 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <img className="logo" src="/favicon.svg" alt="" />
+          <img className="logo" src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" />
           <span>Enredo</span>
         </div>
         <nav className="nav">
