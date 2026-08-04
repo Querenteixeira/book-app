@@ -1,0 +1,21 @@
+{
+  "name": "livros-e-series",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Aplicativo que recomenda livros e séries de temas parecidos, com acompanhamento de progresso e avaliações.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.8"
+  }
+}
