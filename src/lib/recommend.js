@@ -3,14 +3,20 @@ import { CATALOGO } from '../data/catalog.js'
 // Motor de recomendação por afinidade temática.
 //
 // Regra do produto: recomendar obras de temas parecidos, cruzando formatos.
-//   - Lendo um livro de época  -> sugere séries de época.
-//   - Lendo ficção científica  -> sugere ficção científica com história parecida.
+//   - Lendo um livro de época  -> sugere telas (séries/filmes) de época.
+//   - Assistindo ficção científica -> sugere livros de ficção científica.
+//
+// Tratamos "livro" de um lado e "telas" (série + filme) do outro. O formato
+// oposto de um livro são as telas; o de uma tela são os livros.
 //
 // A pontuação é a similaridade de Jaccard entre os conjuntos de temas
-// (interseção / união), o que valoriza obras que compartilham muitos temas e
-// penaliza combinações rasas. Pesamos um pouco a mais os temas em comum para
-// que "de época + romance" case melhor com outra obra "de época + romance"
-// do que com uma obra que só divide um tema.
+// (interseção / união), com um bônus proporcional à quantidade de temas em
+// comum, para que "época + romance" case melhor com outra obra "época +
+// romance" do que com algo que divide um único tema.
+
+function categoria(tipo) {
+  return tipo === 'livro' ? 'livro' : 'tela'
+}
 
 function similaridade(temasA, temasB) {
   const a = new Set(temasA)
@@ -22,7 +28,6 @@ function similaridade(temasA, temasB) {
   if (intersecao === 0) return 0
   const uniao = new Set([...a, ...b]).size
   const jaccard = intersecao / uniao
-  // Bônus proporcional à quantidade absoluta de temas em comum.
   const bonus = intersecao / Math.max(a.size, b.size)
   return jaccard * 0.7 + bonus * 0.3
 }
@@ -34,26 +39,23 @@ export function temasEmComum(itemA, itemB) {
 
 /**
  * Recomenda obras parecidas com o item de referência.
- * @param {object} referencia - livro ou série que a pessoa está consumindo.
+ * @param {object} referencia - livro, série ou filme que a pessoa consome.
  * @param {object} [opcoes]
- * @param {'livro'|'serie'|'ambos'} [opcoes.tipoAlvo='oposto'] - formato desejado.
- *        Por padrão recomenda o formato OPOSTO (lendo livro -> sugere série).
+ * @param {'oposto'|'mesma'|'ambos'} [opcoes.grupo='oposto'] - grupo alvo.
+ *        'oposto' = formato oposto (livro -> telas; tela -> livros);
+ *        'mesma'  = mesma categoria da referência;
+ *        'ambos'  = todo o catálogo.
  * @param {number} [opcoes.limite=6]
  */
 export function recomendar(referencia, opcoes = {}) {
-  const { tipoAlvo = 'oposto', limite = 6 } = opcoes
-
-  const alvo =
-    tipoAlvo === 'oposto'
-      ? referencia.tipo === 'livro'
-        ? 'serie'
-        : 'livro'
-      : tipoAlvo
+  const { grupo = 'oposto', limite = 6 } = opcoes
+  const catRef = categoria(referencia.tipo)
 
   return CATALOGO.filter((item) => {
     if (item.id === referencia.id) return false
-    if (alvo !== 'ambos' && item.tipo !== alvo) return false
-    return true
+    if (grupo === 'ambos') return true
+    const cat = categoria(item.tipo)
+    return grupo === 'oposto' ? cat !== catRef : cat === catRef
   })
     .map((item) => ({
       item,
@@ -86,4 +88,9 @@ export function feedRecomendacoes(itensEmProgresso, limite = 8) {
   return [...acumulado.values()]
     .sort((a, b) => b.score - a.score)
     .slice(0, limite)
+}
+
+// Rótulo do formato oposto, para textos da interface.
+export function rotuloOposto(referencia) {
+  return categoria(referencia.tipo) === 'livro' ? 'telas' : 'livros'
 }

@@ -1,16 +1,20 @@
 :root {
-  --bg: #0f1020;
-  --surface: #1a1b2e;
-  --surface-2: #24263f;
-  --border: #33355a;
-  --text: #eef0ff;
-  --muted: #9aa0c7;
-  --accent: #6d5efc;
-  --accent-soft: #6d5efc33;
-  --star: #ffc857;
-  --ok: #4bd6a0;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --radius: 16px;
+  /* Paleta de Velaris — a Corte Noturna: céu profundo, violeta e luz estelar */
+  --bg: #07060f;
+  --bg-2: #0d0a20;
+  --surface: #150f2e;
+  --surface-2: #1f1740;
+  --border: #362a63;
+  --text: #ecebff;
+  --muted: #a49ccb;
+  --accent: #8b6df0; /* violeta da corte */
+  --accent-2: #b79bff;
+  --accent-soft: #8b6df033;
+  --starlight: #cdd3ff; /* prata estelar */
+  --star: #ffd36b; /* dourado das avaliações */
+  --ok: #6be0b8;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --radius: 18px;
 }
 
 * {
@@ -20,7 +24,11 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-  background: radial-gradient(1200px 600px at 100% -10%, #1c1d3a 0%, var(--bg) 55%);
+  background:
+    radial-gradient(1200px 700px at 85% -10%, #241a52 0%, transparent 55%),
+    radial-gradient(900px 600px at 5% 0%, #16123a 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-2), var(--bg));
+  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
 }
@@ -36,9 +44,48 @@ button {
 }
 
 .app {
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 20px 80px;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Céu estrelado ---------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: var(--starlight);
+  border-radius: 50%;
+  box-shadow: 0 0 6px 1px rgba(205, 211, 255, 0.6);
+  animation-name: cintilar;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes cintilar {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star {
+    animation: none;
+  }
 }
 
 /* ---------- Cabeçalho / navegação ---------- */
@@ -49,78 +96,119 @@ button {
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 18px 0;
-  background: linear-gradient(var(--bg), rgba(15, 16, 32, 0.6));
-  backdrop-filter: blur(6px);
+  padding: 16px 0;
+  background: linear-gradient(var(--bg), rgba(7, 6, 15, 0.55));
+  backdrop-filter: blur(8px);
   margin-bottom: 12px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: 0.3px;
+  gap: 12px;
 }
 
-.brand .logo {
-  width: 30px;
-  height: 30px;
+.brand-mark {
+  color: var(--starlight);
+  filter: drop-shadow(0 0 8px rgba(139, 109, 240, 0.7));
+  display: flex;
+}
+
+.tres-estrelas {
+  color: var(--starlight);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-text small {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  -webkit-text-fill-color: var(--muted);
+  margin-top: 4px;
 }
 
 .nav {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  margin-left: auto;
 }
 
 .nav a {
-  padding: 8px 14px;
+  padding: 9px 16px;
   border-radius: 999px;
   color: var(--muted);
   font-weight: 600;
   font-size: 14px;
   transition: all 0.15s ease;
+  border: 1px solid transparent;
 }
 
 .nav a:hover {
   color: var(--text);
   background: var(--surface);
+  border-color: var(--border);
 }
 
 .nav a.active {
   color: #fff;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), #6d5efc);
+  box-shadow: 0 0 18px rgba(139, 109, 240, 0.5);
 }
 
 /* ---------- Títulos ---------- */
 .page-head {
-  margin: 18px 0 22px;
+  margin: 22px 0 26px;
 }
 
 .page-head h1 {
-  margin: 0 0 6px;
-  font-size: 28px;
+  margin: 0 0 8px;
+  font-size: 30px;
+  letter-spacing: 0.3px;
 }
 
 .page-head p {
   margin: 0;
   color: var(--muted);
-  max-width: 640px;
-  line-height: 1.5;
+  max-width: 680px;
+  line-height: 1.6;
 }
 
 .section-title {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin: 32px 0 14px;
+  gap: 12px;
+  margin: 34px 0 14px;
+  flex-wrap: wrap;
 }
 
 .section-title h2 {
   font-size: 20px;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title h2::before {
+  content: '✦';
+  color: var(--accent-2);
+  font-size: 15px;
 }
 
 .section-title span {
@@ -136,26 +224,36 @@ button {
 }
 
 .card {
-  background: var(--surface);
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(139, 109, 240, 0.35);
 }
 
 .cover {
-  height: 120px;
+  height: 130px;
   display: flex;
   align-items: flex-end;
   padding: 12px;
   position: relative;
+}
+
+.cover::after {
+  /* leve poeira estelar sobre as capas */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 15%, rgba(205, 211, 255, 0.25), transparent 45%);
+  pointer-events: none;
 }
 
 .cover .tipo {
@@ -168,8 +266,10 @@ button {
   letter-spacing: 0.5px;
   padding: 4px 8px;
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(7, 6, 15, 0.55);
   color: #fff;
+  backdrop-filter: blur(2px);
+  z-index: 1;
 }
 
 .card-body {
@@ -209,7 +309,7 @@ button {
 
 .tag.match {
   background: var(--accent-soft);
-  color: #cfc8ff;
+  color: var(--accent-2);
   border-color: var(--accent);
 }
 
@@ -224,8 +324,9 @@ button {
 .progress > i {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #9d7bff);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   border-radius: 999px;
+  box-shadow: 0 0 10px rgba(139, 109, 240, 0.7);
   transition: width 0.3s ease;
 }
 
@@ -237,7 +338,7 @@ button {
   margin-bottom: 6px;
 }
 
-/* ---------- Estrelas ---------- */
+/* ---------- Estrelas (avaliação) ---------- */
 .stars {
   display: inline-flex;
   gap: 2px;
@@ -248,7 +349,7 @@ button {
 .stars button {
   background: none;
   border: none;
-  color: #4a4c6e;
+  color: #43406a;
   padding: 0;
   font-size: inherit;
   transition: transform 0.1s ease, color 0.1s ease;
@@ -260,6 +361,7 @@ button {
 
 .stars .on {
   color: var(--star);
+  text-shadow: 0 0 8px rgba(255, 211, 107, 0.6);
 }
 
 /* ---------- Botões / inputs ---------- */
@@ -279,9 +381,10 @@ button {
 }
 
 .btn.primary {
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), #6d5efc);
   border-color: var(--accent);
   color: #fff;
+  box-shadow: 0 0 16px rgba(139, 109, 240, 0.4);
 }
 
 .btn.ghost {
@@ -311,6 +414,14 @@ select {
   color: var(--text);
   padding: 10px 12px;
   font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 textarea {
@@ -346,6 +457,7 @@ label.field {
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   color: var(--muted);
+  background: rgba(21, 15, 46, 0.4);
 }
 
 .empty h3 {
@@ -362,46 +474,54 @@ label.field {
 }
 
 .chip.lendo {
-  background: #6d5efc22;
-  color: #b6acff;
+  background: #8b6df022;
+  color: var(--accent-2);
 }
 
 .chip.concluido {
-  background: #4bd6a022;
+  background: #6be0b822;
   color: var(--ok);
 }
 
 .chip.quero {
-  background: #ffc85722;
+  background: #ffd36b22;
   color: var(--star);
+}
+
+/* ---------- Filtros de formato ---------- */
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* ---------- Detalhe ---------- */
 .detail-hero {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 190px 1fr;
   gap: 24px;
   margin-bottom: 24px;
 }
 
 .detail-hero .cover {
-  height: 240px;
+  height: 260px;
   border-radius: var(--radius);
 }
 
 .detail-hero h1 {
   margin: 0 0 4px;
+  font-size: 30px;
 }
 
 .detail-hero .sinopse {
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 14px 0;
   opacity: 0.9;
 }
 
 .panel {
-  background: var(--surface);
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
@@ -410,6 +530,9 @@ label.field {
 
 .panel h3 {
   margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .row {
@@ -420,19 +543,21 @@ label.field {
 
 .row > * {
   flex: 1;
-  min-width: 160px;
+  min-width: 150px;
 }
 
 .stat {
   background: var(--surface-2);
-  border-radius: 12px;
-  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 14px;
   text-align: center;
 }
 
 .stat b {
   display: block;
-  font-size: 24px;
+  font-size: 26px;
+  color: var(--accent-2);
 }
 
 .stat span {
@@ -451,16 +576,38 @@ label.field {
   color: var(--text);
 }
 
+/* ---------- Rodapé ---------- */
+.rodape {
+  margin-top: 48px;
+  padding: 24px 0 8px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.rodape .tres-estrelas {
+  color: var(--accent-2);
+  flex-shrink: 0;
+}
+
 @media (max-width: 640px) {
   .detail-hero {
     grid-template-columns: 1fr;
   }
   .detail-hero .cover {
-    height: 160px;
+    height: 180px;
   }
   .topbar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
+  }
+  .nav {
+    margin-left: 0;
   }
 }

@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom'
-import { nomeTema } from '../data/catalog.js'
+import { nomeTema, TIPOS, autoria } from '../data/catalog.js'
 
-// Card reutilizável de uma obra (livro ou série).
+// Card reutilizável de uma obra (livro, série ou filme).
 // `temasDestaque` marca as tags que coincidem com a obra de referência,
 // deixando visível "por que" a recomendação foi feita.
 export default function ObraCard({ item, temasDestaque = [], rodape = null }) {
   const destaque = new Set(temasDestaque)
+  const tipo = TIPOS[item.tipo]
 
   return (
     <div className="card">
       <Link to={`/obra/${item.id}`}>
-        <div className="cover" style={{ background: `linear-gradient(135deg, ${item.capa}, #12132a)` }}>
-          <span className="tipo">{item.tipo === 'livro' ? '📖 Livro' : '📺 Série'}</span>
+        <div className="cover" style={{ background: `linear-gradient(150deg, ${item.capa}, #0b0a1c)` }}>
+          <span className="tipo">
+            {tipo.emoji} {tipo.rotulo}
+          </span>
         </div>
       </Link>
       <div className="card-body">
@@ -19,7 +22,7 @@ export default function ObraCard({ item, temasDestaque = [], rodape = null }) {
           <h3>{item.titulo}</h3>
         </Link>
         <div className="meta">
-          {item.tipo === 'livro' ? item.autor : item.criador} · {item.ano}
+          {autoria(item)} · {item.ano}
         </div>
         <div className="tags">
           {item.temas.slice(0, 4).map((t) => (

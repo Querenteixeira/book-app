@@ -1,28 +1,81 @@
-// Catálogo de livros e séries.
+// Catálogo de livros, séries e filmes.
 // Cada item recebe "temas" (tags) que o motor de recomendação usa para cruzar
-// obras parecidas entre os dois formatos. A ideia central: se você lê um livro
-// de época, o app sugere séries de época; se lê ficção científica, sugere
-// séries de ficção científica com histórias parecidas, e vice-versa.
+// obras parecidas entre formatos. A ideia central: se você lê um livro de
+// época, o app sugere telas (séries/filmes) de época; se lê ficção científica,
+// sugere histórias parecidas no outro formato, e vice-versa.
 
 // Temas usados no catálogo (rótulos amigáveis exibidos na interface).
 export const TEMAS = {
   epoca: 'Época / Histórico',
   ficcao_cientifica: 'Ficção científica',
   fantasia: 'Fantasia',
+  romantasy: 'Romantasy',
   misterio: 'Mistério / Crime',
   romance: 'Romance',
   distopia: 'Distopia',
   drama: 'Drama',
   aventura: 'Aventura',
   suspense: 'Suspense / Thriller',
+  terror: 'Terror',
   guerra: 'Guerra',
   politica: 'Política / Poder',
   sobrenatural: 'Sobrenatural',
   familia: 'Família / Saga',
   crescimento: 'Amadurecimento',
+  comedia: 'Comédia',
+  espaco: 'Espaço',
+  super_heroi: 'Super-herói',
 }
 
 export const LIVROS = [
+  {
+    id: 'l-acotar',
+    tipo: 'livro',
+    titulo: 'Corte de Espinhos e Rosas',
+    autor: 'Sarah J. Maas',
+    ano: 2015,
+    paginas: 448,
+    capa: '#6d3f8a',
+    temas: ['romantasy', 'fantasia', 'romance', 'sobrenatural', 'aventura'],
+    sinopse:
+      'Feyre é levada para uma terra imortal governada por fae depois de matar um lobo. Entre cortes, maldições e paixão, seu destino se enreda ao da Corte Noturna.',
+  },
+  {
+    id: 'l-acomaf',
+    tipo: 'livro',
+    titulo: 'Corte de Névoa e Fúria',
+    autor: 'Sarah J. Maas',
+    ano: 2016,
+    paginas: 624,
+    capa: '#3f3f8a',
+    temas: ['romantasy', 'fantasia', 'romance', 'politica', 'sobrenatural'],
+    sinopse:
+      'Marcada pelo que viveu, Feyre encontra em Velaris — a cidade da luz estelar — uma nova família e um poder que pode mudar o rumo das cortes.',
+  },
+  {
+    id: 'l-trono-vidro',
+    tipo: 'livro',
+    titulo: 'Trono de Vidro',
+    autor: 'Sarah J. Maas',
+    ano: 2012,
+    paginas: 416,
+    capa: '#8a6d3f',
+    temas: ['fantasia', 'aventura', 'romance', 'politica', 'crescimento'],
+    sinopse:
+      'A assassina Celaena Sardothien é tirada das minas de sal para competir pela liberdade e se tornar a campeã do rei que ela despreza.',
+  },
+  {
+    id: 'l-quarto-asas',
+    tipo: 'livro',
+    titulo: 'Quarta Asa',
+    autor: 'Rebecca Yarros',
+    ano: 2023,
+    paginas: 528,
+    capa: '#8a3f5e',
+    temas: ['romantasy', 'fantasia', 'romance', 'guerra', 'aventura'],
+    sinopse:
+      'Violet Sorrengail é forçada a entrar no brutal Colégio de Cavaleiros de Dragões, onde graduar-se significa sobreviver — ou morrer.',
+  },
   {
     id: 'l-orgulho',
     tipo: 'livro',
@@ -67,7 +120,7 @@ export const LIVROS = [
     ano: 1965,
     paginas: 688,
     capa: '#c9a24b',
-    temas: ['ficcao_cientifica', 'aventura', 'politica', 'guerra'],
+    temas: ['ficcao_cientifica', 'aventura', 'politica', 'guerra', 'espaco'],
     sinopse:
       'No planeta desértico Arrakis, o jovem Paul Atreides é lançado em uma disputa por poder, profecia e a especiaria mais valiosa do universo.',
   },
@@ -143,6 +196,30 @@ export const LIVROS = [
     sinopse:
       'A saga de várias gerações da família Buendía na mítica Macondo, entre o real e o fantástico.',
   },
+  {
+    id: 'l-it',
+    tipo: 'livro',
+    titulo: 'It: A Coisa',
+    autor: 'Stephen King',
+    ano: 1986,
+    paginas: 1104,
+    capa: '#8a2f2f',
+    temas: ['terror', 'sobrenatural', 'suspense', 'crescimento'],
+    sinopse:
+      'Sete crianças de Derry enfrentam uma entidade ancestral que se alimenta do medo — e voltam, adultas, para terminar o que começaram.',
+  },
+  {
+    id: 'l-jogos-vorazes',
+    tipo: 'livro',
+    titulo: 'Jogos Vorazes',
+    autor: 'Suzanne Collins',
+    ano: 2008,
+    paginas: 384,
+    capa: '#4b5e3a',
+    temas: ['distopia', 'aventura', 'romance', 'politica', 'crescimento'],
+    sinopse:
+      'Katniss se voluntaria para um jogo mortal transmitido pela TV em um futuro onde o Capitólio oprime os distritos.',
+  },
 ]
 
 export const SERIES = [
@@ -194,7 +271,7 @@ export const SERIES = [
     temporadas: 6,
     episodios: 62,
     capa: '#4b5e8a',
-    temas: ['ficcao_cientifica', 'aventura', 'politica', 'guerra'],
+    temas: ['ficcao_cientifica', 'aventura', 'politica', 'guerra', 'espaco'],
     sinopse:
       'Num futuro em que a humanidade colonizou o Sistema Solar, tensões entre Terra, Marte e o Cinturão beiram uma guerra total.',
   },
@@ -246,7 +323,7 @@ export const SERIES = [
     temporadas: 4,
     episodios: 30,
     capa: '#5e4b3a',
-    temas: ['misterio', 'suspense', 'drama'],
+    temas: ['misterio', 'suspense', 'drama', 'terror'],
     sinopse:
       'Detetives investigam crimes perturbadores que revelam tanto sobre os culpados quanto sobre si mesmos.',
   },
@@ -285,7 +362,7 @@ export const SERIES = [
     temporadas: 7,
     episodios: 101,
     capa: '#4b6d5e',
-    temas: ['epoca', 'romance', 'aventura', 'drama'],
+    temas: ['epoca', 'romance', 'aventura', 'drama', 'sobrenatural'],
     sinopse:
       'Uma enfermeira dos anos 1940 é transportada para a Escócia do século XVIII, onde vive amor e perigo em meio a conflitos históricos.',
   },
@@ -302,9 +379,208 @@ export const SERIES = [
     sinopse:
       'A ascensão do lendário guerreiro Ragnar Lothbrok e suas incursões pela Europa medieval.',
   },
+  {
+    id: 's-stranger',
+    tipo: 'serie',
+    titulo: 'Stranger Things',
+    criador: 'The Duffer Brothers',
+    ano: 2016,
+    temporadas: 4,
+    episodios: 34,
+    capa: '#8a2f3f',
+    temas: ['ficcao_cientifica', 'terror', 'sobrenatural', 'crescimento', 'suspense'],
+    sinopse:
+      'Em Hawkins, um grupo de amigos enfrenta criaturas de outra dimensão enquanto procura um garoto desaparecido.',
+  },
+  {
+    id: 's-shadow-bone',
+    tipo: 'serie',
+    titulo: 'Sombra e Ossos',
+    criador: 'Eric Heisserer',
+    ano: 2021,
+    temporadas: 2,
+    episodios: 16,
+    capa: '#3f4b8a',
+    temas: ['romantasy', 'fantasia', 'aventura', 'romance', 'guerra'],
+    sinopse:
+      'Alina descobre um poder capaz de salvar seu país dividido por uma barreira de trevas — e vira alvo de todos que querem controlá-lo.',
+  },
+  {
+    id: 's-wednesday',
+    tipo: 'serie',
+    titulo: 'Wandinha',
+    criador: 'Al Gough & Miles Millar',
+    ano: 2022,
+    temporadas: 2,
+    episodios: 16,
+    capa: '#2f3f3a',
+    temas: ['misterio', 'terror', 'sobrenatural', 'comedia', 'crescimento'],
+    sinopse:
+      'Wandinha Addams investiga mistérios sombrios na Academia Nevermore, entre visões, monstros e sarcasmo.',
+  },
+  {
+    id: 's-mandalorian',
+    tipo: 'serie',
+    titulo: 'The Mandalorian',
+    criador: 'Jon Favreau',
+    ano: 2019,
+    temporadas: 3,
+    episodios: 24,
+    capa: '#5e5e6d',
+    temas: ['ficcao_cientifica', 'aventura', 'espaco', 'drama'],
+    sinopse:
+      'Um caçador de recompensas solitário protege uma criança misteriosa em uma galáxia à beira do caos.',
+  },
 ]
 
-export const CATALOGO = [...LIVROS, ...SERIES]
+export const FILMES = [
+  {
+    id: 'f-duna',
+    tipo: 'filme',
+    titulo: 'Duna',
+    diretor: 'Denis Villeneuve',
+    ano: 2021,
+    duracao: 155,
+    capa: '#b8933f',
+    temas: ['ficcao_cientifica', 'aventura', 'politica', 'guerra', 'espaco'],
+    sinopse:
+      'A adaptação épica da luta de Paul Atreides pelo controle de Arrakis, o planeta da preciosa especiaria.',
+  },
+  {
+    id: 'f-orgulho',
+    tipo: 'filme',
+    titulo: 'Orgulho e Preconceito',
+    diretor: 'Joe Wright',
+    ano: 2005,
+    duracao: 129,
+    capa: '#c98a63',
+    temas: ['epoca', 'romance', 'drama', 'familia'],
+    sinopse:
+      'Elizabeth Bennet e o Sr. Darcy medem orgulho e afeto na Inglaterra rural do fim do século XVIII.',
+  },
+  {
+    id: 'f-senhor-aneis',
+    tipo: 'filme',
+    titulo: 'O Senhor dos Anéis: A Sociedade do Anel',
+    diretor: 'Peter Jackson',
+    ano: 2001,
+    duracao: 178,
+    capa: '#4b7a5e',
+    temas: ['fantasia', 'aventura', 'guerra', 'sobrenatural'],
+    sinopse:
+      'Frodo parte numa jornada para destruir o Um Anel, formando uma sociedade improvável para salvar a Terra-média.',
+  },
+  {
+    id: 'f-jogos-vorazes',
+    tipo: 'filme',
+    titulo: 'Jogos Vorazes',
+    diretor: 'Gary Ross',
+    ano: 2012,
+    duracao: 142,
+    capa: '#4b5e3a',
+    temas: ['distopia', 'aventura', 'romance', 'politica', 'crescimento'],
+    sinopse:
+      'Katniss enfrenta um jogo mortal televisionado em uma nação futurista dividida entre luxo e miséria.',
+  },
+  {
+    id: 'f-it',
+    tipo: 'filme',
+    titulo: 'It: A Coisa',
+    diretor: 'Andy Muschietti',
+    ano: 2017,
+    duracao: 135,
+    capa: '#8a2f2f',
+    temas: ['terror', 'sobrenatural', 'suspense', 'crescimento'],
+    sinopse:
+      'Um grupo de crianças de Derry enfrenta um palhaço demoníaco que ressurge a cada 27 anos.',
+  },
+  {
+    id: 'f-blade-runner',
+    tipo: 'filme',
+    titulo: 'Blade Runner 2049',
+    diretor: 'Denis Villeneuve',
+    ano: 2017,
+    duracao: 164,
+    capa: '#3f5e6d',
+    temas: ['ficcao_cientifica', 'distopia', 'misterio', 'drama'],
+    sinopse:
+      'Um novo blade runner descobre um segredo enterrado capaz de mergulhar a sociedade no caos.',
+  },
+  {
+    id: 'f-parasita',
+    tipo: 'filme',
+    titulo: 'Parasita',
+    diretor: 'Bong Joon-ho',
+    ano: 2019,
+    duracao: 132,
+    capa: '#5e5e3a',
+    temas: ['drama', 'suspense', 'politica', 'comedia'],
+    sinopse:
+      'Uma família pobre se infiltra na casa de uma família rica, e o encontro entre os mundos termina em tragédia.',
+  },
+  {
+    id: 'f-interestelar',
+    tipo: 'filme',
+    titulo: 'Interestelar',
+    diretor: 'Christopher Nolan',
+    ano: 2014,
+    duracao: 169,
+    capa: '#3f4b6d',
+    temas: ['ficcao_cientifica', 'aventura', 'drama', 'familia', 'espaco'],
+    sinopse:
+      'Um grupo de exploradores atravessa um buraco de minhoca em busca de um novo lar para a humanidade.',
+  },
+  {
+    id: 'f-cronicas-narnia',
+    tipo: 'filme',
+    titulo: 'As Crônicas de Nárnia',
+    diretor: 'Andrew Adamson',
+    ano: 2005,
+    duracao: 143,
+    capa: '#6d5e8a',
+    temas: ['fantasia', 'aventura', 'guerra', 'crescimento', 'sobrenatural'],
+    sinopse:
+      'Quatro irmãos atravessam um guarda-roupa e chegam a Nárnia, um mundo mágico em guerra contra a Feiticeira Branca.',
+  },
+  {
+    id: 'f-orgulho-zumbi',
+    tipo: 'filme',
+    titulo: 'A Bela e a Fera',
+    diretor: 'Bill Condon',
+    ano: 2017,
+    duracao: 129,
+    capa: '#8a5e6d',
+    temas: ['fantasia', 'romance', 'romantasy', 'sobrenatural', 'drama'],
+    sinopse:
+      'Uma jovem se apaixona por uma fera amaldiçoada em um castelo encantado, provando que a beleza está no interior.',
+  },
+  {
+    id: 'f-vingadores',
+    tipo: 'filme',
+    titulo: 'Vingadores: Ultimato',
+    diretor: 'Anthony & Joe Russo',
+    ano: 2019,
+    duracao: 181,
+    capa: '#3f5e5e',
+    temas: ['super_heroi', 'ficcao_cientifica', 'aventura', 'guerra', 'espaco'],
+    sinopse:
+      'Os heróis remanescentes se unem em uma última tentativa de desfazer a devastação causada por Thanos.',
+  },
+  {
+    id: 'f-corra',
+    tipo: 'filme',
+    titulo: 'Corra!',
+    diretor: 'Jordan Peele',
+    ano: 2017,
+    duracao: 104,
+    capa: '#5e3a3a',
+    temas: ['terror', 'suspense', 'misterio', 'drama'],
+    sinopse:
+      'Um rapaz visita a família da namorada e descobre um segredo perturbador por trás da hospitalidade.',
+  },
+]
+
+export const CATALOGO = [...LIVROS, ...SERIES, ...FILMES]
 
 export function buscarPorId(id) {
   return CATALOGO.find((item) => item.id === id)
@@ -312,4 +588,18 @@ export function buscarPorId(id) {
 
 export function nomeTema(chave) {
   return TEMAS[chave] || chave
+}
+
+// Metadados de exibição por tipo de obra.
+export const TIPOS = {
+  livro: { rotulo: 'Livro', emoji: '📖', plural: 'livros' },
+  serie: { rotulo: 'Série', emoji: '📺', plural: 'séries' },
+  filme: { rotulo: 'Filme', emoji: '🎬', plural: 'filmes' },
+}
+
+// "Autoria" de cada tipo (autor / criador / diretor).
+export function autoria(item) {
+  if (item.tipo === 'livro') return item.autor
+  if (item.tipo === 'serie') return item.criador
+  return item.diretor
 }
