@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CATALOGO, buscarPorId } from '../data/catalog.js'
+import { CATALOGO, buscarPorId, autoria, TIPOS } from '../data/catalog.js'
 import { useBiblioteca } from '../lib/storage.js'
 import Estrelas from '../components/Estrelas.jsx'
 
-// Tela 2 de apoio: avaliações. A pessoa dá nota (estrelas) e escreve uma
-// resenha para livros e séries. Um mesmo lugar mostra tudo já avaliado e
-// permite avaliar qualquer obra do catálogo.
+// Tela de apoio nº 2: avaliações. A pessoa dá nota (estrelas) e escreve uma
+// resenha para livros, séries e filmes. Mostra tudo já avaliado e permite
+// avaliar qualquer obra do acervo.
 export default function Avaliacoes() {
   const { avaliacoes, salvarAvaliacao, removerAvaliacao } = useBiblioteca()
   const [filtro, setFiltro] = useState('todos')
@@ -22,6 +22,7 @@ export default function Avaliacoes() {
 
   const mediaLivros = media(avaliadas.filter((x) => x.item.tipo === 'livro'))
   const mediaSeries = media(avaliadas.filter((x) => x.item.tipo === 'serie'))
+  const mediaFilmes = media(avaliadas.filter((x) => x.item.tipo === 'filme'))
 
   const catalogoFiltrado = CATALOGO.filter((i) => filtro === 'todos' || i.tipo === filtro)
 
@@ -30,8 +31,8 @@ export default function Avaliacoes() {
       <div className="page-head">
         <h1>Avaliações</h1>
         <p>
-          Dê a sua nota e registre uma resenha para cada livro e cada série. As médias ajudam a lembrar o
-          que valeu a pena — e o que recomendar para outras pessoas.
+          Dê a sua nota — de uma a cinco estrelas — e registre uma resenha para cada livro, série e filme.
+          As médias ajudam a lembrar o que brilhou mais na sua constelação.
         </p>
       </div>
 
@@ -48,6 +49,10 @@ export default function Avaliacoes() {
           <b>{mediaSeries ? `${mediaSeries} ★` : '—'}</b>
           <span>média das séries</span>
         </div>
+        <div className="stat">
+          <b>{mediaFilmes ? `${mediaFilmes} ★` : '—'}</b>
+          <span>média dos filmes</span>
+        </div>
       </div>
 
       {avaliadas.length > 0 && (
@@ -62,24 +67,28 @@ export default function Avaliacoes() {
               av={av}
               onSalvar={salvarAvaliacao}
               onRemover={removerAvaliacao}
-              editando={false}
             />
           ))}
         </>
       )}
 
       <div className="section-title">
-        <h2>Avaliar do catálogo</h2>
-        <div className="btn-row">
-          <button className={`btn sm ${filtro === 'todos' ? 'primary' : ''}`} onClick={() => setFiltro('todos')}>
-            Todos
-          </button>
-          <button className={`btn sm ${filtro === 'livro' ? 'primary' : ''}`} onClick={() => setFiltro('livro')}>
-            📖 Livros
-          </button>
-          <button className={`btn sm ${filtro === 'serie' ? 'primary' : ''}`} onClick={() => setFiltro('serie')}>
-            📺 Séries
-          </button>
+        <h2>Avaliar do acervo</h2>
+        <div className="filtros">
+          {[
+            ['todos', 'Todos'],
+            ['livro', '📖 Livros'],
+            ['serie', '📺 Séries'],
+            ['filme', '🎬 Filmes'],
+          ].map(([valor, rotulo]) => (
+            <button
+              key={valor}
+              className={`btn sm ${filtro === valor ? 'primary' : ''}`}
+              onClick={() => setFiltro(valor)}
+            >
+              {rotulo}
+            </button>
+          ))}
         </div>
       </div>
       {catalogoFiltrado.map((item) => (
@@ -89,7 +98,6 @@ export default function Avaliacoes() {
           av={avaliacoes[item.id]}
           onSalvar={salvarAvaliacao}
           onRemover={removerAvaliacao}
-          editando
         />
       ))}
     </>
@@ -98,9 +106,9 @@ export default function Avaliacoes() {
 
 // Cartão de avaliação com estrelas + resenha. Funciona tanto para exibir
 // avaliações existentes quanto para criar/editar novas.
-function CartaoAvaliacao({ item, av, onSalvar, onRemover, editando }) {
+function CartaoAvaliacao({ item, av, onSalvar, onRemover }) {
   const [resenha, setResenha] = useState(av?.resenha || '')
-  const [aberto, setAberto] = useState(editando && !av?.nota ? false : true)
+  const [aberto, setAberto] = useState(Boolean(av?.nota || av?.resenha))
 
   return (
     <div className="panel">
@@ -108,17 +116,17 @@ function CartaoAvaliacao({ item, av, onSalvar, onRemover, editando }) {
         <div>
           <Link to={`/obra/${item.id}`}>
             <h3 style={{ margin: 0 }}>
-              {item.tipo === 'livro' ? '📖' : '📺'} {item.titulo}
+              {TIPOS[item.tipo].emoji} {item.titulo}
             </h3>
           </Link>
           <div className="meta" style={{ color: 'var(--muted)', fontSize: 13 }}>
-            {item.tipo === 'livro' ? item.autor : item.criador} · {item.ano}
+            {autoria(item)} · {item.ano}
           </div>
         </div>
         <Estrelas valor={av?.nota || 0} onChange={(n) => onSalvar(item.id, { nota: n })} />
       </div>
 
-      {aberto && (
+      {aberto ? (
         <div style={{ marginTop: 14 }}>
           <label className="field">Sua resenha</label>
           <textarea
@@ -149,9 +157,7 @@ function CartaoAvaliacao({ item, av, onSalvar, onRemover, editando }) {
             )}
           </div>
         </div>
-      )}
-
-      {!aberto && (
+      ) : (
         <button className="btn sm ghost" style={{ marginTop: 12 }} onClick={() => setAberto(true)}>
           + escrever resenha
         </button>

@@ -110,6 +110,10 @@ export function percentualConcluido(item, prog) {
     if (!item.paginas) return 0
     return Math.min(100, Math.round(((prog.paginaAtual || 0) / item.paginas) * 100))
   }
+  if (item.tipo === 'filme') {
+    if (!item.duracao) return 0
+    return Math.min(100, Math.round(((prog.minutoAtual || 0) / item.duracao) * 100))
+  }
   if (!item.episodios) return 0
   return Math.min(100, Math.round(((prog.episodioAtual || 0) / item.episodios) * 100))
 }

@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { buscarPorId, nomeTema } from '../data/catalog.js'
-import { recomendar } from '../lib/recommend.js'
+import { buscarPorId, nomeTema, autoria, TIPOS } from '../data/catalog.js'
+import { recomendar, rotuloOposto } from '../lib/recommend.js'
 import { useBiblioteca, percentualConcluido } from '../lib/storage.js'
 import ObraCard from '../components/ObraCard.jsx'
 import Estrelas from '../components/Estrelas.jsx'
 
 // Página de detalhe de uma obra: sinopse, recomendações de temas parecidos
-// (no formato oposto e no mesmo formato), atalho de progresso e de avaliação.
+// (no formato oposto e no mesmo grupo), atalho de progresso e de avaliação.
 export default function Detalhe() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -15,20 +15,17 @@ export default function Detalhe() {
   const { progresso, avaliacoes, salvarProgresso, salvarAvaliacao } = useBiblioteca()
 
   const recsOpostas = useMemo(
-    () => (item ? recomendar(item, { tipoAlvo: 'oposto', limite: 4 }) : []),
+    () => (item ? recomendar(item, { grupo: 'oposto', limite: 4 }) : []),
     [item],
   )
-  const recsMesmo = useMemo(
-    () => (item ? recomendar(item, { tipoAlvo: item.tipo, limite: 4 }) : []),
-    [item],
-  )
+  const recsMesmo = useMemo(() => (item ? recomendar(item, { grupo: 'mesma', limite: 4 }) : []), [item])
 
   if (!item) {
     return (
       <div className="empty">
-        <h3>Obra não encontrada</h3>
+        <h3>Obra não encontrada nesta corte</h3>
         <Link className="btn primary" to="/">
-          Voltar para Descobrir
+          Voltar a Velaris
         </Link>
       </div>
     )
@@ -37,7 +34,8 @@ export default function Detalhe() {
   const prog = progresso[item.id]
   const av = avaliacoes[item.id]
   const pct = percentualConcluido(item, prog)
-  const formatoOposto = item.tipo === 'livro' ? 'Séries' : 'Livros'
+  const tipo = TIPOS[item.tipo]
+  const formatoOposto = rotuloOposto(item)
 
   return (
     <>
@@ -46,15 +44,15 @@ export default function Detalhe() {
       </span>
 
       <div className="detail-hero">
-        <div className="cover" style={{ background: `linear-gradient(135deg, ${item.capa}, #12132a)` }}>
-          <span className="tipo">{item.tipo === 'livro' ? '📖 Livro' : '📺 Série'}</span>
+        <div className="cover" style={{ background: `linear-gradient(150deg, ${item.capa}, #0b0a1c)` }}>
+          <span className="tipo">
+            {tipo.emoji} {tipo.rotulo}
+          </span>
         </div>
         <div>
           <h1>{item.titulo}</h1>
           <div className="meta" style={{ color: 'var(--muted)' }}>
-            {item.tipo === 'livro'
-              ? `${item.autor} · ${item.ano} · ${item.paginas} páginas`
-              : `${item.criador} · ${item.ano} · ${item.temporadas} temporadas · ${item.episodios} episódios`}
+            {fichaTecnica(item)}
           </div>
           <div className="tags" style={{ marginTop: 12 }}>
             {item.temas.map((t) => (
@@ -70,6 +68,11 @@ export default function Detalhe() {
               Escrever resenha
             </Link>
           </div>
+          {av?.resenha && (
+            <p className="sinopse" style={{ fontStyle: 'italic', fontSize: 14, marginTop: 10 }}>
+              “{av.resenha}”
+            </p>
+          )}
         </div>
       </div>
 
@@ -80,11 +83,7 @@ export default function Detalhe() {
           <>
             <div className="progress-label">
               <span>{pct}% concluído</span>
-              <span>
-                {item.tipo === 'livro'
-                  ? `pág. ${prog.paginaAtual || 0} de ${item.paginas}`
-                  : `ep. ${prog.episodioAtual || 0} de ${item.episodios}`}
-              </span>
+              <span>{legenda(item, prog)}</span>
             </div>
             <div className="progress">
               <i style={{ width: `${pct}%` }} />
@@ -98,7 +97,7 @@ export default function Detalhe() {
         ) : (
           <div className="btn-row">
             <span className="meta" style={{ color: 'var(--muted)' }}>
-              Ainda não está na sua lista.
+              Ainda não está na sua coleção.
             </span>
             <button
               className="btn sm primary"
@@ -107,18 +106,19 @@ export default function Detalhe() {
                   status: 'lendo',
                   paginaAtual: 0,
                   episodioAtual: 0,
+                  minutoAtual: 0,
                   temporadaAtual: 1,
                 })
               }
             >
-              {item.tipo === 'livro' ? 'Começar a ler' : 'Começar a assistir'}
+              {textoComecar(item)}
             </button>
           </div>
         )}
       </div>
 
       <div className="section-title">
-        <h2>{formatoOposto} de temas parecidos</h2>
+        <h2>{capitalizar(formatoOposto)} de temas parecidos</h2>
         <span>a ponte entre os formatos</span>
       </div>
       {recsOpostas.length ? (
@@ -134,7 +134,7 @@ export default function Detalhe() {
       {recsMesmo.length > 0 && (
         <>
           <div className="section-title">
-            <h2>Também parecidos ({item.tipo === 'livro' ? 'livros' : 'séries'})</h2>
+            <h2>Também parecidos ({item.tipo === 'livro' ? 'livros' : 'telas'})</h2>
           </div>
           <div className="grid">
             {recsMesmo.map((r) => (
@@ -145,4 +145,25 @@ export default function Detalhe() {
       )}
     </>
   )
+}
+
+function fichaTecnica(item) {
+  if (item.tipo === 'livro') return `${autoria(item)} · ${item.ano} · ${item.paginas} páginas`
+  if (item.tipo === 'filme') return `${autoria(item)} · ${item.ano} · ${item.duracao} min`
+  return `${autoria(item)} · ${item.ano} · ${item.temporadas} temporadas · ${item.episodios} episódios`
+}
+
+function legenda(item, prog) {
+  if (item.tipo === 'livro') return `pág. ${prog.paginaAtual || 0} de ${item.paginas}`
+  if (item.tipo === 'filme') return `${prog.minutoAtual || 0} de ${item.duracao} min`
+  return `ep. ${prog.episodioAtual || 0} de ${item.episodios}`
+}
+
+function textoComecar(item) {
+  if (item.tipo === 'livro') return 'Começar a ler'
+  return 'Começar a assistir'
+}
+
+function capitalizar(t) {
+  return t.charAt(0).toUpperCase() + t.slice(1)
 }
