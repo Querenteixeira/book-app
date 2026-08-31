@@ -2,6 +2,8 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import Descobrir from './pages/Descobrir.jsx'
 import Progresso from './pages/Progresso.jsx'
 import Avaliacoes from './pages/Avaliacoes.jsx'
+import Debates from './pages/Debates.jsx'
+import Atelie from './pages/Atelie.jsx'
 import Detalhe from './pages/Detalhe.jsx'
 import Starfield, { TresEstrelas } from './components/Starfield.jsx'
 
@@ -26,6 +28,8 @@ export default function App() {
           </NavLink>
           <NavLink to="/progresso">Meu progresso</NavLink>
           <NavLink to="/avaliacoes">Avaliações</NavLink>
+          <NavLink to="/clube">Clube de leitura</NavLink>
+          <NavLink to="/atelie">Ateliê</NavLink>
         </nav>
       </header>
 
@@ -34,6 +38,8 @@ export default function App() {
           <Route path="/" element={<Descobrir />} />
           <Route path="/progresso" element={<Progresso />} />
           <Route path="/avaliacoes" element={<Avaliacoes />} />
+          <Route path="/clube" element={<Debates />} />
+          <Route path="/atelie" element={<Atelie />} />
           <Route path="/obra/:id" element={<Detalhe />} />
         </Routes>
       </main>
