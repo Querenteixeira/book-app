@@ -12,6 +12,7 @@ export const TEMAS = {
   romantasy: 'Romantasy',
   misterio: 'Mistério / Crime',
   romance: 'Romance',
+  dark: 'Dark / Sombrio',
   distopia: 'Distopia',
   drama: 'Drama',
   aventura: 'Aventura',
@@ -219,6 +220,150 @@ export const LIVROS = [
     temas: ['distopia', 'aventura', 'romance', 'politica', 'crescimento'],
     sinopse:
       'Katniss se voluntaria para um jogo mortal transmitido pela TV em um futuro onde o Capitólio oprime os distritos.',
+  },
+  {
+    id: 'l-acowar',
+    tipo: 'livro',
+    titulo: 'Corte de Asas e Ruína',
+    autor: 'Sarah J. Maas',
+    ano: 2017,
+    paginas: 720,
+    capa: '#2f3f7a',
+    temas: ['romantasy', 'fantasia', 'romance', 'guerra', 'politica'],
+    sinopse:
+      'Feyre retorna à Corte da Primavera como espiã enquanto as cortes se preparam para uma guerra que decidirá o destino de Prythian.',
+  },
+  {
+    id: 'l-acosf',
+    tipo: 'livro',
+    titulo: 'Corte de Chamas Prateadas',
+    autor: 'Sarah J. Maas',
+    ano: 2021,
+    paginas: 800,
+    capa: '#7a2f4b',
+    temas: ['romantasy', 'dark', 'romance', 'drama', 'sobrenatural'],
+    sinopse:
+      'Nesta, a fúria e a dor de Nesta Archeron a levam a um caminho de cura, poder e um amor tão intenso quanto perigoso.',
+  },
+  {
+    id: 'l-crescent',
+    tipo: 'livro',
+    titulo: 'Casa de Terra e Sangue',
+    autor: 'Sarah J. Maas',
+    ano: 2020,
+    paginas: 816,
+    capa: '#5e2f6d',
+    temas: ['romantasy', 'fantasia', 'misterio', 'romance', 'sobrenatural'],
+    sinopse:
+      'Em Cidade Lua, Bryce Quinlan investiga uma série de assassinatos ao lado de um caçador angelical — e descobre segredos que abalam o mundo.',
+  },
+  {
+    id: 'l-fbaa',
+    tipo: 'livro',
+    titulo: 'Sangue e Cinzas',
+    autor: 'Jennifer L. Armentrout',
+    ano: 2020,
+    paginas: 640,
+    capa: '#8a3f2f',
+    temas: ['romantasy', 'dark', 'romance', 'aventura', 'fantasia'],
+    sinopse:
+      'Escolhida pelos deuses, Poppy vive isolada até que um guarda proibido a faz questionar tudo que lhe ensinaram sobre seu reino.',
+  },
+  {
+    id: 'l-cruel-prince',
+    tipo: 'livro',
+    titulo: 'O Príncipe Cruel',
+    autor: 'Holly Black',
+    ano: 2018,
+    paginas: 384,
+    capa: '#2f5e4b',
+    temas: ['romantasy', 'fantasia', 'dark', 'politica', 'crescimento'],
+    sinopse:
+      'Mortal na corte dos fae, Jude enfrenta o cruel príncipe Cardan numa disputa de poder, traição e desejo no reino de Elfhame.',
+  },
+  {
+    id: 'l-six-crows',
+    tipo: 'livro',
+    titulo: 'Seis de Corvos',
+    autor: 'Leigh Bardugo',
+    ano: 2015,
+    paginas: 480,
+    capa: '#2f3a4b',
+    temas: ['fantasia', 'aventura', 'suspense', 'crescimento', 'dark'],
+    sinopse:
+      'Seis foras da lei com talentos improváveis se unem para um assalto impossível que pode mudar o mundo — ou matá-los.',
+  },
+  {
+    id: 'l-red-queen',
+    tipo: 'livro',
+    titulo: 'A Rainha Vermelha',
+    autor: 'Victoria Aveyard',
+    ano: 2015,
+    paginas: 400,
+    capa: '#8a2f3f',
+    temas: ['fantasia', 'distopia', 'romance', 'politica', 'crescimento'],
+    sinopse:
+      'Num mundo dividido pela cor do sangue, Mare descobre um poder impossível e é arrastada para uma corte de intrigas mortais.',
+  },
+  {
+    id: 'l-haunting-adeline',
+    tipo: 'livro',
+    titulo: 'Caça a Adeline',
+    autor: 'H. D. Carlton',
+    ano: 2021,
+    paginas: 528,
+    capa: '#3a2f3f',
+    temas: ['dark', 'romance', 'suspense', 'terror', 'misterio'],
+    sinopse:
+      'Adeline se muda para a mansão da bisavó e passa a ser observada por um perseguidor obcecado — enquanto desvenda um segredo sombrio.',
+  },
+  {
+    id: 'l-verity',
+    tipo: 'livro',
+    titulo: 'Verity',
+    autor: 'Colleen Hoover',
+    ano: 2018,
+    paginas: 336,
+    capa: '#5e2f3a',
+    temas: ['suspense', 'dark', 'drama', 'romance', 'misterio'],
+    sinopse:
+      'Contratada para terminar os livros de uma autora incapacitada, Lowen encontra um manuscrito de confissões que gela o sangue.',
+  },
+  {
+    id: 'l-it-ends',
+    tipo: 'livro',
+    titulo: 'É Assim que Acaba',
+    autor: 'Colleen Hoover',
+    ano: 2016,
+    paginas: 384,
+    capa: '#6d3f5e',
+    temas: ['romance', 'drama', 'crescimento'],
+    sinopse:
+      'Lily reconstrói a vida em Boston e se apaixona por um neurocirurgião — até que o passado e o presente a forçam a decisões difíceis.',
+  },
+  {
+    id: 'l-silent-patient',
+    tipo: 'livro',
+    titulo: 'A Paciente Silenciosa',
+    autor: 'Alex Michaelides',
+    ano: 2019,
+    paginas: 344,
+    capa: '#2f4b5e',
+    temas: ['suspense', 'misterio', 'drama'],
+    sinopse:
+      'Alicia atira no marido e nunca mais fala. Um psicoterapeuta obcecado pelo caso tenta desvendar por que — com um final que ninguém prevê.',
+  },
+  {
+    id: 'l-gone-girl',
+    tipo: 'livro',
+    titulo: 'Garota Exemplar',
+    autor: 'Gillian Flynn',
+    ano: 2012,
+    paginas: 432,
+    capa: '#3a3f4b',
+    temas: ['suspense', 'misterio', 'dark', 'drama'],
+    sinopse:
+      'No dia do aniversário de casamento, Amy desaparece. Cada segredo revelado torna o marido mais suspeito — e a verdade mais perturbadora.',
   },
 ]
 
@@ -431,6 +576,32 @@ export const SERIES = [
     sinopse:
       'Um caçador de recompensas solitário protege uma criança misteriosa em uma galáxia à beira do caos.',
   },
+  {
+    id: 's-you',
+    tipo: 'serie',
+    titulo: 'You',
+    criador: 'Greg Berlanti & Sera Gamble',
+    ano: 2018,
+    temporadas: 5,
+    episodios: 50,
+    capa: '#3a2f3a',
+    temas: ['dark', 'suspense', 'romance', 'misterio', 'drama'],
+    sinopse:
+      'Joe Goldberg se apaixona obsessivamente e é capaz de tudo — inclusive matar — para estar perto de quem deseja.',
+  },
+  {
+    id: 's-bridgerton-queen',
+    tipo: 'serie',
+    titulo: 'A Rainha Charlotte',
+    criador: 'Shonda Rhimes',
+    ano: 2023,
+    temporadas: 1,
+    episodios: 6,
+    capa: '#8a6d3f',
+    temas: ['epoca', 'romance', 'drama', 'politica'],
+    sinopse:
+      'A história de amor e ascensão da jovem rainha Charlotte, que redefiniu a alta sociedade do universo de Bridgerton.',
+  },
 ]
 
 export const FILMES = [
@@ -577,6 +748,42 @@ export const FILMES = [
     temas: ['terror', 'suspense', 'misterio', 'drama'],
     sinopse:
       'Um rapaz visita a família da namorada e descobre um segredo perturbador por trás da hospitalidade.',
+  },
+  {
+    id: 'f-gone-girl',
+    tipo: 'filme',
+    titulo: 'Garota Exemplar',
+    diretor: 'David Fincher',
+    ano: 2014,
+    duracao: 149,
+    capa: '#3a3f4b',
+    temas: ['suspense', 'misterio', 'dark', 'drama'],
+    sinopse:
+      'O desaparecimento de Amy transforma seu marido no principal suspeito de um crime cheio de reviravoltas.',
+  },
+  {
+    id: 'f-it-ends',
+    tipo: 'filme',
+    titulo: 'É Assim que Acaba',
+    diretor: 'Justin Baldoni',
+    ano: 2024,
+    duracao: 131,
+    capa: '#6d3f5e',
+    temas: ['romance', 'drama', 'crescimento'],
+    sinopse:
+      'Lily se vê dividida entre um novo amor e sombras do passado, numa história sobre coragem e recomeços.',
+  },
+  {
+    id: 'f-cruel-intentions',
+    tipo: 'filme',
+    titulo: 'Crueldade Sedutora',
+    diretor: 'Roger Kumble',
+    ano: 1999,
+    duracao: 97,
+    capa: '#5e2f4b',
+    temas: ['dark', 'romance', 'drama', 'suspense'],
+    sinopse:
+      'Dois meio-irmãos ricos apostam na sedução e na chantagem, até que o jogo cruel se volta contra eles.',
   },
 ]
 

@@ -34,15 +34,27 @@ Além das recomendações, o app traz telas de apoio para **acompanhar seu progr
 - Veja a **média das suas notas** separada por livros, séries e filmes.
 - Avalie qualquer título direto do acervo, com filtro por formato.
 
-### 4. Detalhe da obra
+### 4. Clube de Leitura (tela nova)
+- Poste o **trecho** que mais te marcou de um livro e conte por quê.
+- **Debata com outras pessoas**: cada tópico tem uma roda de comentários onde dá para responder sobre a passagem e sobre a obra inteira.
+- Filtro por livro, contadores da comunidade e um **nome de exibição** editável ("na corte você é…").
+- Já vem com conversas de exemplo para o salão não nascer vazio.
+
+### 5. Ateliê de Fanart (tela nova, interativa)
+- **Monte a personagem** e veja um retrato em SVG gerado ao vivo: corte (Noturna, Amanhecer, Primavera, Verão, Outono, Inverno, Dia), tom de pele, cor e estilo de cabelo, tipo e cor de **roupa**, além de **asas de fae, máscara de baile, coroa e tatuagem**.
+- Botão **"Surpreenda-me"** para gerar combinações aleatórias.
+- **Envie sua própria arte** (upload de imagem) associada a um livro/personagem.
+- Tudo entra numa **galeria da corte** com nome da personagem e descrição de roupas/aparência.
+
+### 6. Detalhe da obra
 - Sinopse, ficha técnica e temas.
 - Sua nota e resenha exibidas ali mesmo.
 - Atalhos para começar a acompanhar o progresso e para avaliar.
 - Recomendações de temas parecidos no formato oposto e no mesmo grupo.
 
-Todos os dados (progresso e avaliações) ficam salvos localmente no navegador (`localStorage`) — sem necessidade de cadastro ou backend.
+Todos os dados (progresso, avaliações, debates e fanarts) ficam salvos localmente no navegador (`localStorage`) — sem necessidade de cadastro ou backend. Por isso, os debates e a galeria são pessoais/locais (uma base pronta para, no futuro, conectar a um backend multiusuário real).
 
-O acervo já vem com **livros, séries e filmes** (dezenas de títulos), incluindo obras da própria saga que inspira o tema.
+O acervo já vem com **dezenas de livros, séries e filmes**, com forte presença de **fantasia, romantasy, romance, dark, drama e suspense**, incluindo obras da própria saga que inspira o tema.
 
 ---
 
@@ -129,11 +141,15 @@ book-app/
     ├── components/
     │   ├── ObraCard.jsx        # card reutilizável de uma obra
     │   ├── Estrelas.jsx        # seletor de nota por estrelas
-    │   └── Starfield.jsx       # céu estrelado + símbolo das três estrelas
+    │   ├── Starfield.jsx       # céu estrelado + símbolo das três estrelas
+    │   ├── PerfilNome.jsx      # nome de exibição da corte (editável)
+    │   └── PersonagemArt.jsx   # retrato de personagem gerado em SVG
     └── pages/
         ├── Descobrir.jsx       # tela principal de recomendações + filtros
         ├── Progresso.jsx       # progresso de páginas, episódios e minutos
         ├── Avaliacoes.jsx      # notas e resenhas
+        ├── Debates.jsx         # clube de leitura (trechos + comentários)
+        ├── Atelie.jsx          # ateliê de fanart (designer + galeria)
         └── Detalhe.jsx         # página de detalhe da obra
 ```
 

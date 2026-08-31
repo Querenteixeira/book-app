@@ -595,6 +595,176 @@ label.field {
   flex-shrink: 0;
 }
 
+/* ---------- Perfil / avatar ---------- */
+.perfil-nome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px 8px 8px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #6d5efc);
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(139, 109, 240, 0.5);
+}
+
+.perfil-nome input {
+  width: auto;
+  min-width: 180px;
+}
+
+/* ---------- Clube de leitura ---------- */
+.trecho {
+  margin: 14px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  background: rgba(139, 109, 240, 0.08);
+  border-radius: 0 12px 12px 0;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.comentarios {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0 4px;
+}
+
+.comentario {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.comentario p {
+  margin: 4px 0 0;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.92;
+}
+
+.comentario-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.comentario-cab span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.responder {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.responder input {
+  flex: 1;
+}
+
+/* ---------- Ateliê de fanart ---------- */
+.atelie {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.atelie-preview {
+  position: sticky;
+  top: 90px;
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+
+.atelie-preview svg {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+
+.atelie-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.12);
+}
+
+.swatch.sel {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.fanart-img {
+  aspect-ratio: 1 / 1;
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fanart-img svg,
+.fanart-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 780px) {
+  .atelie {
+    grid-template-columns: 1fr;
+  }
+  .atelie-preview {
+    position: static;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 640px) {
   .detail-hero {
     grid-template-columns: 1fr;
